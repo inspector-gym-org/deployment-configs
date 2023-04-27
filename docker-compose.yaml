@@ -1,11 +1,14 @@
 services:
-  payment-service:
-    image: ${REPOSITORY}/payment-service:latest
+  telegram-bot-service:
+    image: ${REPOSITORY}/telegram-bot-service:latest
     env_file:
       - .env
+      - ./telegram-bot-service/.env
+    ports:
+      - 5000:80
 
-  user-service:
-    image: ${REPOSITORY}/user-service:latest
+  payment-service:
+    image: ${REPOSITORY}/payment-service:latest
     env_file:
       - .env
 
@@ -15,13 +18,10 @@ services:
       - .env
       - ./training-plan-service/.env
 
-  telegram-bot-service:
-    image: ${REPOSITORY}/telegram-bot-service:latest
+  user-service:
+    image: ${REPOSITORY}/user-service:latest
     env_file:
       - .env
-      - ./telegram-bot-service/.env
-    ports:
-      - 5000:80
 
   mongo:
     image: mongo:6.0.5-jammy
