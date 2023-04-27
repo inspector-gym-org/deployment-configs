@@ -1,0 +1,10 @@
+*
+!.gitignore
+!README.md
+
+!.env.example
+
+!docker-compose.yaml
+!docker-compose.dev.yaml
+
+!update.sh
