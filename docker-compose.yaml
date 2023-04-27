@@ -1,0 +1,39 @@
+services:
+  payment-service:
+    image: ${REPOSITORY}/payment-service:latest
+    env_file:
+      - .env
+
+  user-service:
+    image: ${REPOSITORY}/user-service:latest
+    env_file:
+      - .env
+
+  training-plan-service:
+    image: ${REPOSITORY}/training-plan-service:latest
+    env_file:
+      - .env
+      - ./training-plan-service/.env
+
+  telegram-bot-service:
+    image: ${REPOSITORY}/telegram-bot-service:latest
+    env_file:
+      - .env
+      - ./telegram-bot-service/.env
+
+  mongo:
+    image: mongo:6.0.5-jammy
+    volumes:
+      - mongo:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASS}
+
+  redis:
+    image: redis:7.0.10-bullseye
+    volumes:
+      - redis:/data
+
+volumes:
+  mongo:
+  redis:

@@ -1,0 +1,55 @@
+services:
+  payment-service:
+    build: ./payment-service
+    env_file:
+      - .env
+    volumes:
+      - ./payment-service:/code
+    ports:
+      - 5000:80
+
+  user-service:
+    build: ./user-service
+    env_file:
+      - .env
+    volumes:
+      - ./user-service:/code
+    ports:
+      - 5001:80
+
+  training-plan-service:
+    build: ./training-plan-service
+    env_file:
+      - .env
+      - ./training-plan-service/.env
+    volumes:
+      - ./training-plan-service:/code
+    ports:
+      - 5002:80
+
+  telegram-bot-service:
+    build: ./telegram-bot-service
+    env_file:
+      - .env
+      - ./telegram-bot-service/.env
+    volumes:
+      - ./telegram-bot-service:/code
+    ports:
+      - 5003:80
+
+  mongo:
+    image: mongo:6.0.5-jammy
+    volumes:
+      - mongo:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASS}
+
+  redis:
+    image: redis:7.0.10-bullseye
+    volumes:
+      - redis:/data
+
+volumes:
+  mongo:
+  redis:
