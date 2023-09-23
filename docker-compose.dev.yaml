@@ -9,6 +9,12 @@ services:
     ports:
       - 5000:80
 
+  telegram-webhook-ngrok:
+    image: ngrok/ngrok:latest
+    command: ["http", "telegram-bot-service:80"]
+    env_file:
+      - .env
+
   payment-service:
     build: ./payment-service
     env_file:
